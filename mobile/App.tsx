@@ -7,11 +7,16 @@
  */
 
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
-// if (__DEV__) import('services/Reactotron');
+import {SafeAreaView, StatusBar} from 'react-native';
+if (__DEV__) import('services/Reactotron');
+import dataService from 'services/Data';
 
 const App = () => {
-  return <View />;
+  return (
+    <SafeAreaView style={{backgroundColor: 'orange', flex: 1}}>
+      <StatusBar barStyle="dark-content" />
+    </SafeAreaView>
+  );
 };
 
 export default App;

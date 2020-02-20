@@ -175,7 +175,8 @@
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = XFZ48F3RV9;
+						DevelopmentTeam = 9MTS2MVJ7H;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -298,9 +299,11 @@
 			baseConfigurationReference = 59B2F3B411DA088C50C161A6 /* Pods-mobile.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = XFZ48F3RV9;
+				DEVELOPMENT_TEAM = 9MTS2MVJ7H;
 				INFOPLIST_FILE = mobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -310,6 +313,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.imperea.eVeterinar;
 				PRODUCT_NAME = mobile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -319,8 +323,10 @@
 			baseConfigurationReference = 2FC8A4DA7FD9867AC5EFC3D7 /* Pods-mobile.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XFZ48F3RV9;
+				DEVELOPMENT_TEAM = 9MTS2MVJ7H;
 				INFOPLIST_FILE = mobile/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -330,6 +336,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.imperea.eVeterinar;
 				PRODUCT_NAME = mobile;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

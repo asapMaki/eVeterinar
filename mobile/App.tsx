@@ -7,16 +7,49 @@
  */
 
 import React from 'react';
-import {SafeAreaView, StatusBar} from 'react-native';
+import {SafeAreaView, StatusBar, Platform, AppState} from 'react-native';
 if (__DEV__) import('services/Reactotron');
-import dataService from 'services/Data';
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import configureStore from 'store';
 
-const App = () => {
-  return (
-    <SafeAreaView style={{backgroundColor: 'orange', flex: 1}}>
-      <StatusBar barStyle="dark-content" />
-    </SafeAreaView>
-  );
-};
+interface AppState {
+  store: any;
+  persistor: any;
+  firstTime: boolean;
+}
 
-export default App;
+export default class App extends React.Component<{}, AppState> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      store: null,
+      persistor: null,
+      firstTime: null,
+    };
+  }
+
+  async componentDidMount() {
+    StatusBar.setBarStyle('dark-content');
+    StatusBar.setHidden(false);
+    // Platform.OS == 'android' && StatusBar.setTranslucent(false);
+    // Platform.OS == 'android' && StatusBar.setBackgroundColor('#000');
+
+    let {store, persistor} = await configureStore();
+    let {isUserSignedIn} = store.getState();
+    this.setState({store, persistor});
+  }
+
+  render() {
+    let {store, persistor, firstTime} = this.state;
+    // const Layout = store ? createRootNavigator(firstTime, signedIn) : null;
+
+    return !store ? null : (
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <SafeAreaView style={{backgroundColor: 'orange', flex: 1}}></SafeAreaView>
+        </PersistGate>
+      </Provider>
+    );
+  }
+}

@@ -27,7 +27,7 @@ export const initialUser = {
 };
 //Reducers
 const user = createReducer(initialUser, objectActionHandler(keys.SET_USER));
-const isUserSignedIn = createReducer({value: false}, singleValueActionHandler(keys.IS_USER_SIGNED_IN));
+const isUserSignedIn = createReducer(false, singleValueActionHandler(keys.IS_USER_SIGNED_IN));
 // const firstTimeOpening = createReducer({value: true}, singleValueActionHandler(keys.FIRST_TIME_OPENING));
 
 export const rootReducer = combineReducers({

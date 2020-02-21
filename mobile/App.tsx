@@ -12,6 +12,8 @@ if (__DEV__) import('services/Reactotron');
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import configureStore from 'store';
+import {NavigationContainer} from '@react-navigation/native';
+import LoginStack from 'router/LogInStack';
 
 interface AppState {
   store: any;
@@ -47,7 +49,9 @@ export default class App extends React.Component<{}, AppState> {
     return !store ? null : (
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <SafeAreaView style={{backgroundColor: 'orange', flex: 1}}></SafeAreaView>
+          <NavigationContainer>
+            <LoginStack />
+          </NavigationContainer>
         </PersistGate>
       </Provider>
     );

@@ -1,3 +1,7 @@
 {
-  "login": {}
+  "login": {
+    "login": "Prijavi se",
+    "register": "Registruj se",
+    "forgotPassword": "Zaboravili ste lozinku?"
+  }
 }

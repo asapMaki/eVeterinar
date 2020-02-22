@@ -6,78 +6,95 @@
  * @flow
  */
 
-import React, {createRef, useEffect} from 'react';
-import {View, Image, Text, ScrollView} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Image, Text, TouchableOpacity} from 'react-native';
 
-import {TextField, FilledTextField, OutlinedTextField} from 'react-native-material-textfield';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import LoginForm from './LoginForm';
+import RegisterForm from './RegisterForm';
+import gt from 'translations';
+import {useSelector, useDispatch} from 'react-redux';
+
+let Button = ({active = false, type, pressed, onPress}) => (
+  <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', padding: 8}}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={{
+        backgroundColor: pressed ? '#6D9773' : '#fff',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 116,
+        height: 43,
+        borderRadius: 24,
+      }}>
+      <Text style={{color: pressed ? '#fff' : '#6D9773', fontFamily: 'Nunito', fontSize: 14}}>
+        {gt('login.' + type, 'ba')}
+      </Text>
+    </TouchableOpacity>
+  </View>
+);
 
 let Login = () => {
-  let emailRef = createRef();
-  let passwordRef = createRef();
-  // const Layout = store ? createRootNavigator(firstTime, signedIn) : null;
+  let [loginPressed, setLoginPressed] = useState(true);
 
   useEffect(() => {});
 
   return (
     <KeyboardAwareScrollView
-      contentContainerStyle={{flex: 1, padding: 16, paddingTop: 72, paddingBottom: 24}}
+      contentContainerStyle={{padding: 16, paddingTop: 72, paddingBottom: 24}}
       scrollEnabled={true}
       keyboardOpeningTime={0}
-      resetScrollToCoords={{x: 0, y: 0}}>
+      automaticallyAdjustContentInsets={true}>
       <Image
         style={{position: 'absolute', left: -10}}
         source={require('../../assets/images/doctor.png')}
         resizeMode="contain"
       />
-      <View style={{flex: 1, borderRadius: 16}}>
-        <View style={{flex: 2, backgroundColor: 'transparent'}}>
+      <View style={{borderRadius: 16, width: '100%'}}>
+        <View style={{backgroundColor: 'transparent'}}>
           <Image
-            style={{width: '100%', height: '100%', borderTopLeftRadius: 16, borderTopRightRadius: 16}}
+            style={{height: 150, width: '100%', borderTopLeftRadius: 16, borderTopRightRadius: 16}}
             source={require('../../assets/images/doctor-header.png')}
             resizeMode="cover"
           />
         </View>
         <View
           style={{
-            flex: 5,
             backgroundColor: 'white',
             padding: 16,
             borderBottomLeftRadius: 16,
             borderBottomRightRadius: 16,
           }}>
           <Image
-            style={{width: '70%', height: '100%', flex: 2}}
+            style={{height: 52, width: 220}}
             source={require('../../assets/images/logo.png')}
             resizeMode="contain"
           />
-          <View style={{flex: 7}}>
-            <Text style={{fontFamily: 'Nunito', fontSize: 24, marginBottom: 24}}>Prijavi se</Text>
-            <OutlinedTextField
-              label="E-mail"
-              returnKeyType="next"
-              animationDuration={400}
-              tintColor={'black'}
-              error={''}
-              containerStyle={{marginBottom: 16}}
-              // formatText={this.formatText}
-              onSubmitEditing={() => passwordRef.focus()}
-              // inputContainerStyle={{backgroundColor: 'red'}}
-              // containerStyle={{backgroundColor: 'orange'}}
-              //   ref={ref => (emailRef = ref)}
-            />
-            <OutlinedTextField
-              label="Password"
-              returnKeyType="next"
-              animationDuration={400}
-              tintColor={'grey'}
-              error={''}
-              onSubmitEditing={() => passwordRef.blur()}
-              ref={ref => (passwordRef = ref)}
-            />
-          </View>
 
-          <View style={{flex: 3, backgroundColor: 'white'}}></View>
+          {loginPressed ? <LoginForm /> : <RegisterForm />}
+
+          <View style={{backgroundColor: 'white'}}>
+            <View style={{flexDirection: 'row', marginVertical: 8}}>
+              <Button active type="login" pressed={loginPressed} onPress={() => setLoginPressed(true)} />
+              <Button type="register" pressed={!loginPressed} onPress={() => setLoginPressed(false)} />
+            </View>
+
+            {loginPressed && (
+              <View style={{justifyContent: 'center', alignItems: 'center', width: '100%', marginVertical: 8}}>
+                <TouchableOpacity
+                  style={{
+                    justifyContent: 'center',
+
+                    alignItems: 'center',
+                    borderRadius: 24,
+                  }}>
+                  <Text style={{color: '#000', fontFamily: 'Nunito', fontSize: 16}}>
+                    {gt('login.forgotPassword', 'ba')}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
         </View>
       </View>
     </KeyboardAwareScrollView>

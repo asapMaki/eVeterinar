@@ -6,17 +6,31 @@
  * @flow
  */
 
-import React, {createRef, useEffect} from 'react';
+import React, {createRef, useEffect, useState} from 'react';
 import {View, Image, Text} from 'react-native';
 
-import {OutlinedTextField} from 'react-native-material-textfield';
+import {OutlinedTextField, TextField} from 'react-native-material-textfield';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
-let LoginForm = () => {
+let LoginForm = ({email, setEmail, password, setPassword}) => {
   let emailRef = createRef();
   let passwordRef = createRef();
+  let [secureTextEntry, setSecureTextEntry] = useState(true);
   // const Layout = store ? createRootNavigator(firstTime, signedIn) : null;
 
-  useEffect(() => {});
+  let renderPasswordAccessory = () => {
+    let name = secureTextEntry ? 'visibility' : 'visibility-off';
+
+    return (
+      <MaterialIcon
+        size={24}
+        name={name}
+        color={TextField.defaultProps.baseColor}
+        onPress={() => setSecureTextEntry(!secureTextEntry)}
+        suppressHighlighting={true}
+      />
+    );
+  };
 
   return (
     <View style={{backgroundColor: 'transparent'}}>
@@ -24,6 +38,10 @@ let LoginForm = () => {
 
       <OutlinedTextField
         label="E-mail"
+        value={email}
+        onChangeText={text => setEmail(text)}
+        autoCorrect={false}
+        keyboardType="email-address"
         returnKeyType="next"
         animationDuration={400}
         tintColor={'grey'}
@@ -35,6 +53,12 @@ let LoginForm = () => {
 
       <OutlinedTextField
         label="Lozinka"
+        value={password}
+        secureTextEntry={secureTextEntry}
+        type={'password'}
+        autoCorrect={false}
+        renderRightAccessory={renderPasswordAccessory}
+        onChangeText={text => setPassword(text)}
         returnKeyType="next"
         animationDuration={400}
         tintColor={'grey'}

@@ -20,16 +20,17 @@ axios.interceptors.response.use(
 // SERVICE KEY CAN BE USED WHEN WE HAVE MICROSEVICE BACKEND, USE KEY FOR ENV VARIABLES eg. USER key for userService
 let dataService = (method = 'GET', serviceKey, url, {token, locale}, data = {}) => {
   let obj = {};
-  if (Object.keys(data).length !== 0) obj.data = data;
+  let additionalHeaders = {};
 
+  if (Object.keys(data).length !== 0) obj.data = data;
+  if (token && locale) additionalHeaders = {'Accept-Language': locale, Authorization: 'Bearer ' + token};
   return axios({
     method,
     ...obj,
     url: env[serviceKey] + url,
     headers: {
-      'Accept-Language': locale,
-      Authorization: 'Bearer ' + token,
-      Accept: '*/*',
+      ...additionalHeaders,
+      accept: '*/*',
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
       'Cache-Control': 'no-cache',

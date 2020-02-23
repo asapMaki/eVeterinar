@@ -7,15 +7,13 @@
  */
 
 import React from 'react';
-import {View, StatusBar, SafeAreaView, AppState} from 'react-native';
+import {Platform, StatusBar, SafeAreaView} from 'react-native';
 if (__DEV__) import('services/Reactotron');
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import configureStore from 'store';
-import {NavigationContainer} from '@react-navigation/native';
-import LoginStack from 'router/LogInStack';
-import LoggedInStack from 'router/LoggedInStack';
 import Router from 'router';
+
 interface AppState {
   store: any;
   persistor: any;
@@ -48,18 +46,17 @@ export default class App extends React.Component<{}, AppState> {
   async componentDidMount() {
     StatusBar.setBarStyle('dark-content');
     StatusBar.setHidden(false);
-    // Platform.OS == 'andro id' && StatusBar.setTranslucent(false);
-    // Platform.OS == 'android' && StatusBar.setBackgroundColor('#000');
+    Platform.OS == 'android' && StatusBar.setTranslucent(false);
+    Platform.OS == 'android' && StatusBar.setBackgroundColor('#fff');
 
     let {store, persistor} = await configureStore();
-    let {isUserSignedIn} = store.getState();
+
     this.setState({store, persistor});
   }
 
   render() {
     let {store, persistor} = this.state;
-    // const Layout = store ? createRootNavigator(firstTime, signedIn) : null;
-    if (store) console.tron.log(store.getState().isUserSignedIn);
+
     return !store ? null : (
       <SafeAreaView style={{flex: 1}}>
         <Provider store={store}>

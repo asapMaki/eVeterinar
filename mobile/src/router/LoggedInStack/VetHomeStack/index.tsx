@@ -1,15 +1,14 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 const Stack = createStackNavigator();
-import Login from 'login';
-import LoggedInStack from '../LoggedInStack';
+import VetHome from 'loggedIn/VetHome';
 
-let LogInStack = props => {
+let VetHomeStack = props => {
   return (
     <Stack.Navigator headerMode="none">
-      <Stack.Screen name="Login" component={Login} options={{}} />
+      <Stack.Screen name="Home" component={VetHome} options={{}} />
     </Stack.Navigator>
   );
 };
 
-export default LogInStack;
+export default VetHomeStack;

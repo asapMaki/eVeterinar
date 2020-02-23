@@ -16,7 +16,7 @@ let Profile = () => {
 
   return (
     <View style={{backgroundColor: 'orange'}}>
-      <Button title="aa" onPress={() => dispatch(setUserSignedIn(false))} />
+      <Button title="Odjavi se" onPress={() => dispatch(setUserSignedIn(false))} />
     </View>
   );
 };

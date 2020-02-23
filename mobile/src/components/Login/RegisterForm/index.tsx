@@ -127,7 +127,7 @@ let RegisterForm = ({
         ref={ref => (emailRef = ref)}
       />
       <OutlinedTextField
-        label="Password"
+        label="Lozinka"
         returnKeyType="done"
         value={password}
         onChangeText={text => setPassword(text)}

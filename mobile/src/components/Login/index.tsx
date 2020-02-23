@@ -7,7 +7,7 @@
  */
 
 import React, {useEffect, useState, createRef} from 'react';
-import {View, Image, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {View, Image, Text, TouchableOpacity, ActivityIndicator, ImageBackground} from 'react-native';
 
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import LoginForm from './LoginForm';
@@ -53,142 +53,143 @@ let Login = props => {
 
   let dispatch = useDispatch();
   return (
-    <KeyboardAwareScrollView
-      contentContainerStyle={{padding: 16, paddingTop: 72, paddingBottom: 24}}
-      scrollEnabled={true}
-      keyboardOpeningTime={0}
-      automaticallyAdjustContentInsets={true}>
+    <View>
       <Image
-        style={{position: 'absolute', left: -10}}
+        style={{position: 'absolute', top: 0, left: -10, right: 0, bottom: 0}}
         source={require('../../assets/images/doctor.png')}
         resizeMode="contain"
       />
-
-      <View style={{borderRadius: 16, width: '100%'}}>
-        <View style={{backgroundColor: 'transparent'}}>
-          <Image
-            style={{height: 150, width: '100%', borderTopLeftRadius: 16, borderTopRightRadius: 16}}
-            source={require('../../assets/images/doctor-header.png')}
-            resizeMode="cover"
-          />
-        </View>
-        <View
-          style={{
-            backgroundColor: 'white',
-            padding: 16,
-            borderBottomLeftRadius: 16,
-            borderBottomRightRadius: 16,
-          }}>
-          <Image
-            style={{height: 52, width: 220}}
-            source={require('../../assets/images/logo.png')}
-            resizeMode="contain"
-          />
-
-          {loginPressed ? (
-            <LoginForm {...{email, setEmail, password, setPassword}} />
-          ) : (
-            <RegisterForm
-              {...{
-                email,
-                setEmail,
-                password,
-                setPassword,
-                first_name,
-                setFirstName,
-                last_name,
-                setLastName,
-                role,
-                setRole,
-              }}
+      <KeyboardAwareScrollView
+        contentContainerStyle={{}}
+        scrollEnabled={true}
+        keyboardOpeningTime={0}
+        showsVerticalScrollIndicator={false}>
+        <View style={{borderRadius: 16, width: '100%', height: '100%', padding: 16, paddingTop: 72, paddingBottom: 24}}>
+          <View style={{backgroundColor: 'transparent'}}>
+            <Image
+              style={{height: 150, width: '100%', borderTopLeftRadius: 16, borderTopRightRadius: 16}}
+              source={require('../../assets/images/doctor-header.png')}
+              resizeMode="cover"
             />
-          )}
+          </View>
+          <View
+            style={{
+              backgroundColor: 'white',
+              padding: 16,
+              borderBottomLeftRadius: 16,
+              borderBottomRightRadius: 16,
+            }}>
+            <Image
+              style={{height: 52, width: 220}}
+              source={require('../../assets/images/logo.png')}
+              resizeMode="contain"
+            />
 
-          <View style={{backgroundColor: 'white'}}>
-            <View style={{flexDirection: 'row', marginVertical: 8}}>
-              <Button
-                active
-                type="login"
-                pressed={loginPressed}
-                loading={loading}
-                onPress={() => {
-                  if (loginPressed) {
-                    setLoading(true);
-
-                    dataService('POST', 'eVeterinarApi', 'users/login', {}, {email, password})
-                      .then(({data}) => {
-                        setLoading(false);
-                        dispatch(setUser(data));
-                        dispatch(setUserSignedIn(true));
-                      })
-                      .catch(error => {
-                        setLoading(false);
-                        DropDownHolder.dropDown.alertWithType('error', '', 'Email ili lozinka su neispravni');
-                      });
-                  } else {
-                    setPassword('');
-                    setLoginPressed(true);
-                  }
+            {loginPressed ? (
+              <LoginForm {...{email, setEmail, password, setPassword}} />
+            ) : (
+              <RegisterForm
+                {...{
+                  email,
+                  setEmail,
+                  password,
+                  setPassword,
+                  first_name,
+                  setFirstName,
+                  last_name,
+                  setLastName,
+                  role,
+                  setRole,
                 }}
               />
-              <Button
-                type="register"
-                pressed={!loginPressed}
-                loading={loading}
-                onPress={() => {
-                  if (!loginPressed) {
-                    setLoading(true);
-
-                    dataService(
-                      'POST',
-                      'eVeterinarApi',
-                      'users',
-                      {},
-                      {
-                        first_name,
-                        last_name,
-                        email,
-                        password,
-                        role,
-                        is_online: true,
-                      },
-                    )
-                      .then(({data}) => {
-                        setLoading(false);
-                        DropDownHolder.dropDown.alertWithType('success', '', 'Uspjesna registracija');
-                        setLoginPressed(true);
-                      })
-                      .catch(error => {
-                        setLoading(false);
-                        DropDownHolder.dropDown.alertWithType('error', '', 'Neki od podataka nisu ispravni');
-                      });
-                  } else {
-                    setPassword('');
-                    setLoginPressed(false);
-                  }
-                }}
-              />
-            </View>
-
-            {loginPressed && (
-              <View style={{justifyContent: 'center', alignItems: 'center', width: '100%', marginVertical: 8}}>
-                <TouchableOpacity
-                  style={{
-                    justifyContent: 'center',
-
-                    alignItems: 'center',
-                    borderRadius: 24,
-                  }}>
-                  <Text style={{color: '#000', fontFamily: 'Nunito', fontSize: 16}}>
-                    {gt('login.forgotPassword', 'ba')}
-                  </Text>
-                </TouchableOpacity>
-              </View>
             )}
+
+            <View style={{backgroundColor: 'white'}}>
+              <View style={{flexDirection: 'row', marginVertical: 8}}>
+                <Button
+                  active
+                  type="login"
+                  pressed={loginPressed}
+                  loading={loading}
+                  onPress={() => {
+                    if (loginPressed) {
+                      setLoading(true);
+
+                      dataService('POST', 'eVeterinarApi', 'users/login', {}, {email, password})
+                        .then(({data}) => {
+                          setLoading(false);
+                          dispatch(setUser(data));
+                          dispatch(setUserSignedIn(true));
+                        })
+                        .catch(error => {
+                          setLoading(false);
+                          DropDownHolder.dropDown.alertWithType('error', '', 'Email ili lozinka su neispravni');
+                        });
+                    } else {
+                      setPassword('');
+                      setLoginPressed(true);
+                    }
+                  }}
+                />
+                <Button
+                  type="register"
+                  pressed={!loginPressed}
+                  loading={loading}
+                  onPress={() => {
+                    if (!loginPressed) {
+                      setLoading(true);
+
+                      dataService(
+                        'POST',
+                        'eVeterinarApi',
+                        'users',
+                        {},
+                        {
+                          first_name,
+                          last_name,
+                          email,
+                          password,
+                          role,
+                          is_online: true,
+                        },
+                      )
+                        .then(({data}) => {
+                          setLoading(false);
+                          DropDownHolder.dropDown.alertWithType('success', '', 'Uspjesna registracija');
+                          setLoginPressed(true);
+                        })
+                        .catch(error => {
+                          setLoading(false);
+                          DropDownHolder.dropDown.alertWithType('error', '', 'Neki od podataka nisu ispravni');
+                        });
+                    } else {
+                      setPassword('');
+                      setLoginPressed(false);
+                    }
+                  }}
+                />
+              </View>
+
+              {loginPressed && (
+                <View style={{justifyContent: 'center', alignItems: 'center', width: '100%', marginVertical: 8}}>
+                  <TouchableOpacity
+                    style={{
+                      justifyContent: 'center',
+
+                      alignItems: 'center',
+                      borderRadius: 24,
+                    }}>
+                    <Text style={{color: '#000', fontFamily: 'Nunito', fontSize: 16}}>
+                      {gt('login.forgotPassword', 'ba')}
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+            </View>
           </View>
         </View>
-      </View>
-    </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
+    </View>
   );
 };
 

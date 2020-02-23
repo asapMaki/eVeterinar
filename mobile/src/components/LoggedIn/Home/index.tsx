@@ -33,12 +33,15 @@ let Home = () => {
   const ref = React.useRef(null);
   useScrollToTop(ref);
 
-  let Item = ({image, title, numberOfVeterinarians, numberOfVeterinarianStations}) => (
+  let Item = ({image, title, numberOfVeterinarians, numberOfVeterinarianStations, last}) => (
     <TouchableOpacity
       activeOpacity={0.8}
       style={{
         flexDirection: 'row',
         height: 170,
+        marginVertical: 8,
+        marginBottom: last ? 40 : 8,
+        marginHorizontal: 16,
         borderRadius: 20,
         backgroundColor: '#fff',
         shadowColor: 'rgba(0,0,0,0.2)',
@@ -48,7 +51,6 @@ let Home = () => {
         },
         shadowOpacity: 0.39,
         shadowRadius: 8.3,
-        marginHorizontal: 16,
         elevation: 13,
       }}>
       <View
@@ -77,13 +79,11 @@ let Home = () => {
   );
 
   return (
-    <KeyboardAwareScrollView
-      scrollEnabled={false}
-      contentContainerStyle={{flex: 1, backgroundColor: '#fff', paddingVertical: 16}}>
+    <KeyboardAwareScrollView scrollEnabled={false} contentContainerStyle={{flex: 1, backgroundColor: '#fff'}}>
       <View style={{height: 56, justifyContent: 'center', paddingHorizontal: 16}}>
         <Icon name="bars" size={24} />
       </View>
-      <View style={{paddingHorizontal: 16}}>
+      <View style={{paddingHorizontal: 16, marginBottom: 8}}>
         <Text style={{fontFamily: 'Nunito', fontSize: 20, marginBottom: 20}}>Kako vam možemo pomoci?</Text>
         <View
           style={{
@@ -105,13 +105,14 @@ let Home = () => {
           />
         </View>
       </View>
+
       <FlatList
-        style={{flex: 1, paddingTop: 16}}
+        style={{flex: 1}}
         ref={ref}
         data={DATA}
-        renderItem={({item}) => <Item {...item} />}
+        renderItem={({item, index}) => <Item {...{...item, last: index === DATA.length - 1}} />}
         keyExtractor={(item, id) => item.id + id}
-        ItemSeparatorComponent={({highlighted}) => <View style={{marginBottom: 16}} />}
+        ItemSeparatorComponent={({highlighted}) => <View style={{marginBottom: 0}} />}
       />
     </KeyboardAwareScrollView>
   );

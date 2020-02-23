@@ -1,5 +1,5 @@
 import {applyMiddleware, createStore, compose} from 'redux';
-import {persistStore, persistReducer, autoRehydrate} from 'redux-persist';
+import {persistStore, persistReducer} from 'redux-persist';
 import thunk from 'redux-thunk';
 import Reactotron from 'services/Reactotron';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -14,14 +14,12 @@ export default configureStore = () =>
         key: 'root',
         storage: AsyncStorage,
         stateReconciler: autoMergeLevel2,
-        blacklist: ['modalAlert', 'axiosRequestLoader', 'popup', 'showPopup', 'coupons', 'filters'],
+        blacklist: [],
         // whitelist: []
       };
       const persistedReducer = persistReducer(persistConfig, rootReducer);
       let middleware = [thunk];
-      let store = __DEV__
-        ? createStore(persistedReducer, compose(applyMiddleware(...middleware), Reactotron.createEnhancer()))
-        : createStore(persistedReducer, compose(applyMiddleware(...middleware)));
+      let store = createStore(persistedReducer, compose(applyMiddleware(...middleware)));
       const persistor = persistStore(store, undefined, () => resolve({store, persistor}));
     } catch (e) {
       reject(e);

@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import {View, StatusBar, Platform, AppState} from 'react-native';
+import {View, StatusBar, SafeAreaView, AppState} from 'react-native';
 if (__DEV__) import('services/Reactotron');
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -61,14 +61,14 @@ export default class App extends React.Component<{}, AppState> {
     // const Layout = store ? createRootNavigator(firstTime, signedIn) : null;
     if (store) console.tron.log(store.getState().isUserSignedIn);
     return !store ? null : (
-      <View style={{flex: 1}}>
+      <SafeAreaView style={{flex: 1}}>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <Router />
           </PersistGate>
         </Provider>
         <DropdownAlert ref={ref => DropDownHolder.setDropDown(ref)} />
-      </View>
+      </SafeAreaView>
     );
   }
 }

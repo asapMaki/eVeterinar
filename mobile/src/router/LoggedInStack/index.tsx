@@ -3,7 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 const Tab = createBottomTabNavigator();
 
-import Home from 'loggedIn/Home';
+import Home from './HomeStack';
 import Profile from 'loggedIn/Profile';
 import Calendar from 'loggedIn/Schedule';
 

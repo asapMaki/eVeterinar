@@ -112,26 +112,23 @@ let Login = props => {
                 pressed={loginPressed}
                 loading={loading}
                 onPress={() => {
-                  dispatch(setUserSignedIn(true));
+                  if (loginPressed) {
+                    setLoading(true);
 
-                  //   if (loginPressed) {
-                  //     setLoading(true);
-
-                  //     dataService('POST', 'eVeterinarApi', 'users/login', {}, {email, password})
-                  //       .then(({data}) => {
-                  //         setLoading(false);
-                  //         dispatch(setUser(data));
-                  //         dispatch(setUserSignedIn(true));
-                  //         props.navigation.navigate('LoggedInStack');
-                  //       })
-                  //       .catch(error => {
-                  //         setLoading(false);
-                  //         DropDownHolder.dropDown.alertWithType('error', '', 'Email ili lozinka su neispravni');
-                  //       });
-                  //   } else {
-                  //     setPassword('');
-                  //     setLoginPressed(true);
-                  //   }
+                    dataService('POST', 'eVeterinarApi', 'users/login', {}, {email, password})
+                      .then(({data}) => {
+                        setLoading(false);
+                        dispatch(setUser(data));
+                        dispatch(setUserSignedIn(true));
+                      })
+                      .catch(error => {
+                        setLoading(false);
+                        DropDownHolder.dropDown.alertWithType('error', '', 'Email ili lozinka su neispravni');
+                      });
+                  } else {
+                    setPassword('');
+                    setLoginPressed(true);
+                  }
                 }}
               />
               <Button

@@ -41,6 +41,7 @@ let LoginForm = ({email, setEmail, password, setPassword}) => {
         value={email}
         onChangeText={text => setEmail(text)}
         autoCorrect={false}
+        autoCapitalize="none"
         keyboardType="email-address"
         returnKeyType="next"
         animationDuration={400}

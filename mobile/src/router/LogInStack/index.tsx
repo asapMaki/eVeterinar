@@ -4,10 +4,11 @@ const Stack = createStackNavigator();
 import Login from 'login';
 import LoggedInStack from '../LoggedInStack';
 
-let LogInStack = () => {
+let LogInStack = props => {
+  console.tron.log(props);
   return (
     <Stack.Navigator headerMode="none">
-      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Login" component={Login} options={{}} />
     </Stack.Navigator>
   );
 };

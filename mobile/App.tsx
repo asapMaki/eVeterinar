@@ -15,7 +15,7 @@ import configureStore from 'store';
 import {NavigationContainer} from '@react-navigation/native';
 import LoginStack from 'router/LogInStack';
 import LoggedInStack from 'router/LoggedInStack';
-
+import Router from 'router';
 interface AppState {
   store: any;
   persistor: any;
@@ -64,7 +64,7 @@ export default class App extends React.Component<{}, AppState> {
       <View style={{flex: 1}}>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
-            <NavigationContainer>{store.isUserSignedIn ? <LoggedInStack /> : <LoginStack />}</NavigationContainer>
+            <Router />
           </PersistGate>
         </Provider>
         <DropdownAlert ref={ref => DropDownHolder.setDropDown(ref)} />

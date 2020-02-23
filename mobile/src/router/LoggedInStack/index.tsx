@@ -5,13 +5,15 @@ const Tab = createBottomTabNavigator();
 
 import Home from 'loggedIn/Home';
 import Profile from 'loggedIn/Profile';
-import Schedule from 'loggedIn/Schedule';
+import Calendar from 'loggedIn/Schedule';
+
+import TabBar from './TabBarComponent';
 
 let LoggedInStack = () => (
-  <Tab.Navigator>
+  <Tab.Navigator tabBar={props => <TabBar {...props} />}>
     <Tab.Screen name="Home" component={Home} />
-    <Tab.Screen name="Schedule" component={Schedule} />
-    <Tab.Screen name="Profile" component={Profile} />
+    <Tab.Screen name="Calendar-Month" component={Calendar} />
+    <Tab.Screen name="Account" component={Profile} />
   </Tab.Navigator>
 );
 

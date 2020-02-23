@@ -1,14 +1,21 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
 import LogInStack from './LogInStack';
 import LoggedInStack from './LoggedInStack';
-const Stack = createStackNavigator();
+import {connect} from 'react-redux';
 
-let rootStack = () => (
-  <NavigationContainer>
-    <LogInStack />
-  </NavigationContainer>
-);
+class RootStack extends Component {
+  render() {
+    let {isUserSignedIn} = this.props;
 
-export default rootStack;
+    return <NavigationContainer>{isUserSignedIn ? <LoggedInStack /> : <LogInStack />}</NavigationContainer>;
+  }
+}
+
+let mapStateToProps = state => {
+  const {isUserSignedIn} = state;
+  return {isUserSignedIn};
+};
+
+// export default RootStack;
+export default connect(mapStateToProps, {})(RootStack);
